@@ -1,4 +1,4 @@
-# nam_vue
+# vuetify_users_list
 
 ## Project setup
 ```
