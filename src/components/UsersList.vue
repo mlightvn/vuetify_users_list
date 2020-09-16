@@ -1,13 +1,12 @@
 <template>
   <v-container>
     <v-row class="text-center">
-      <v-col cols="12">
+      <v-col cols="12" v-if="false">
         <v-img
-          :src="require('./public/logo_64.png')"
+          :src="require('../assets/logo/logo_256.svg')"
           class="my-3"
           contain
           height="200"
-          v-if="false"
         />
       </v-col>
 
@@ -30,8 +29,8 @@
               <v-card-text>
                 <v-container grid-list-md>
                   <v-layout wrap>
-                    <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="users_list.editedItem.id" label="ID" readonly bg-color="grey"></v-text-field>
+                    <v-flex xs12 sm12 md12 color="grey">
+                        <v-text-field v-model="users_list.editedItem.id" label="ID" readonly="readonly" disabled color="disabled"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
                         <v-text-field v-model="users_list.editedItem.name" label="Name"></v-text-field>
@@ -62,24 +61,32 @@
             item-key="id"
             :show-select="false"
             :multi-sort="true"
-            :item-class="itemRowBackground"
+            :item-class="itemRowClass"
           >
           </v-data-table>
  -->
         </v-row>
 
         <v-row>
-          <!-- https://materialdesignicons.com/ -->
-          <v-btn color="primary" dark class="mb-2" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
+          <v-col
+            class="mb-5"
+            cols="12"
+          >
+            <div class="text-right">
+              <!-- https://materialdesignicons.com/ -->
+              <v-btn color="primary" fab dark class="mb-2" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
+            </div>
 
+          </v-col>
         </v-row>
 
         <v-row justify="center">
-            <!-- hide-default-footer -->
-          <v-data-table v-model="users_list.selected" :headers="users_list.headers" :items="users_list.items"
+          <v-data-table
+            v-model="users_list.selected"
+            :headers="users_list.headers"
+            :items="users_list.items"
             class="elevation-1"
-            :item-class="itemRowBackground"
-            item-key="id"
+            :item-class="itemRowClass"
             :multi-sort="true"
             :items-per-page="10"
             :show-select="true"
@@ -137,35 +144,35 @@
         headers: [
           // https://vuetifyjs.com/en/styles/colors/
           // { text: '#', value: 'id',  sortable: true, class: "primary white--text title" },
-          { text: 'Name', value: 'name', sortable: true, class: "primary white--text title" },
+          { text: '名前', value: 'name', sortable: true, class: "primary white--text title" },
           { text: 'email', value: 'email', sortable: true, class: "primary white--text title" },
-          { text: 'Status', value: 'status', sortable: true, class: "primary white--text title" },
+          { text: '状態', value: 'status.text', sortable: true, class: "primary white--text title" },
           { text: '', value: 'actions', sortable: false, class: "primary white--text title" }
         ],
         items: [
-          {id: 0, name: 'Nam', email:null, status:'valid'},
-          {id: 1, name: 'Nguyen', email:null, status:'invalid'},
-          {id: 2, name: 'Tester 1', email:null, status:'valid'},
-          {id: 3, name: 'Tester 2 - deleted', email:null, status:'deleted'},
-          {id: 4, name: 'Tester 3', email:null, status:'valid'},
-          {id: 5, name: 'Tester 4', email:null, status:'valid'},
-          {id: 6, name: 'Tester 5', email:null, status:'valid'},
-          {id: 7, name: 'Tester 6', email:null, status:'valid'},
-          {id: 8, name: 'Tester 7', email:null, status:'valid'},
-          {id: 9, name: 'Tester 8', email:null, status:'valid'},
-          {id: 10, name: 'Tester 9 - deleted', email:null, status:'deleted'},
-          {id: 11, name: 'Tester 10', email:null, status:'valid'},
-          {id: 12, name: 'Tester 11', email:null, status:'valid'},
-          {id: 13, name: 'Tester 12', email:null, status:'valid'},
-          {id: 14, name: 'Tester 13', email:null, status:'valid'},
-          {id: 15, name: 'Tester 14', email:null, status:'valid'},
-          {id: 16, name: 'Tester 15', email:null, status:'valid'},
-          {id: 17, name: 'Tester 16', email:null, status:'valid'},
-          {id: 18, name: 'Tester 17', email:null, status:'valid'},
-          {id: 19, name: 'Tester 18', email:null, status:'valid'},
-          {id: 20, name: 'Tester 19', email:null, status:'valid'},
-          {id: 21, name: 'Tester 20', email:null, status:'valid'},
-          {id: 22, name: 'Tester 21', email:null, status:'valid'},
+          {id: 0, name: 'Nam', email:null, status:{value:'valid', text:'有効'}},
+          {id: 1, name: 'Nguyen', email:null, status:{value:'invalid', text:'無効'}},
+          {id: 2, name: 'Tester 1', email:null, status:{value:'valid', text:'有効'}},
+          {id: 3, name: 'Tester 2 - deleted', email:null, status:{value:'deleted', text:'削除'}},
+          {id: 4, name: 'Tester 3', email:null, status:{value:'valid', text:'有効'}},
+          {id: 5, name: 'Tester 4', email:null, status:{value:'valid', text:'有効'}},
+          {id: 6, name: 'Tester 5', email:null, status:{value:'valid', text:'有効'}},
+          {id: 7, name: 'Tester 6', email:null, status:{value:'valid', text:'有効'}},
+          {id: 8, name: 'Tester 7', email:null, status:{value:'valid', text:'有効'}},
+          {id: 9, name: 'Tester 8', email:null, status:{value:'valid', text:'有効'}},
+          {id: 10, name: 'Tester 9 - deleted', email:null, status:{value:'deleted', text:'削除'}},
+          {id: 11, name: 'Tester 10', email:null, status:{value:'valid', text:'有効'}},
+          {id: 12, name: 'Tester 11', email:null, status:{value:'valid', text:'有効'}},
+          {id: 13, name: 'Tester 12', email:null, status:{value:'valid', text:'有効'}},
+          {id: 14, name: 'Tester 13', email:null, status:{value:'valid', text:'有効'}},
+          {id: 15, name: 'Tester 14', email:null, status:{value:'valid', text:'有効'}},
+          {id: 16, name: 'Tester 15', email:null, status:{value:'valid', text:'有効'}},
+          {id: 17, name: 'Tester 16', email:null, status:{value:'valid', text:'有効'}},
+          {id: 18, name: 'Tester 17', email:null, status:{value:'valid', text:'有効'}},
+          {id: 19, name: 'Tester 18', email:null, status:{value:'valid', text:'有効'}},
+          {id: 20, name: 'Tester 19', email:null, status:{value:'valid', text:'有効'}},
+          {id: 21, name: 'Tester 20', email:null, status:{value:'valid', text:'有効'}},
+          {id: 22, name: 'Tester 21', email:null, status:{value:'valid', text:'有効'}},
         ]
         ,editedIndex: -1
         ,editedItem: {id: null,  name: null, email:null, status:'valid'}
@@ -176,7 +183,7 @@
 
     ,computed: {
       formTitle() {
-        return this.users_list.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return ((this.users_list.editedIndex === -1) || (this.users_list.editedIndex === this.users_list.items.length)) ? 'New Item' : 'Edit Item'
       }
     }
     ,watch: {
@@ -188,8 +195,8 @@
     ,methods: {
       initialise() {
       }
-      ,itemRowBackground: function (item) {
-         return (item.status == "deleted") ? 'grey--text text--lighten-1' : (item.status == "invalid" ? 'deep-orange--text text--darken-1' : '')
+      ,itemRowClass: function (item) {
+         return (item.status.value == "deleted") ? 'grey--text text--lighten-1' : (item.status.value == "invalid" ? 'deep-orange--text text--darken-1' : '')
       }
 
       ,showAddDialog:function() {
@@ -208,7 +215,9 @@
       }
       ,showDeleteDialog:function(item) {
           const index = this.users_list.items.indexOf(item)
-          confirm('Are you sure you want to delete this item?') && this.listPrimitive.delete(index)
+          if (index > -1) {
+            confirm('Are you sure you want to delete this item?') && this.users_list.items.splice(index, 1)
+          }
       }
       ,close() {
         this.dialog = false

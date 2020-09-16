@@ -10,7 +10,7 @@
           alt="Users list demo"
           class="shrink mr-2"
           contain
-          src="logo_64.png"
+          :src="require('./assets/logo/logo_64.png')"
           transition="scale-transition"
           width="40"
         />
@@ -21,7 +21,7 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/namtenten/vuetify_users_list"
+        href="https://github.com/namtenten"
         target="_blank"
         text
       >
