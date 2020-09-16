@@ -11,11 +11,11 @@
       </v-col>
 
       <v-col
-        class="mb-5"
+        class="mb-1"
         cols="12"
       >
-        <h2 class="headline font-weight-bold mb-3">
-          Users List
+        <h2 class="headline font-weight-bold mb-0">
+          USERS LIST
         </h2>
 
         <v-row>
@@ -30,24 +30,34 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm12 md12 color="grey">
-                        <v-text-field v-model="users_list.editedItem.id" label="ID" readonly="readonly" disabled color="disabled"></v-text-field>
+                        <v-text-field v-model="users_list.editedItem.id" label="ID" readonly="readonly" disabled></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="users_list.editedItem.name" label="Name"></v-text-field>
+                        <v-text-field v-model="users_list.editedItem.name" label="名前"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
                         <v-text-field v-model="users_list.editedItem.email" label="email" type="email"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="users_list.editedItem.status" label="Status"></v-text-field>
+                      <v-select
+                        label="状態"
+                        v-model="users_list.editedItem.status.value"
+                        item-text="text"
+                        item-value="value"
+                        :items="status_list.items"
+                        no-data-text="<No data was gathered!>"
+                        dense
+                      >
+                      </v-select>
+
                     </v-flex>
                   </v-layout>
                 </v-container>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click.native="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click.native="save">Save</v-btn>
+                <v-btn color="primary" @click.native="close">Cancel</v-btn>
+                <v-btn color="primary" @click.native="save">Save</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -69,12 +79,12 @@
 
         <v-row>
           <v-col
-            class="mb-5"
+            class="mb-1"
             cols="12"
           >
             <div class="text-right">
               <!-- https://materialdesignicons.com/ -->
-              <v-btn color="primary" fab dark class="mb-2" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
+              <v-btn color="primary" fab dark class="mb-0" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
             </div>
 
           </v-col>
@@ -89,7 +99,9 @@
             :item-class="itemRowClass"
             :multi-sort="true"
             :items-per-page="10"
-            :show-select="true"
+            item-key="id"
+            :show-select="false"
+            :search="users_list.search"
           >
 
             <template v-slot:top="{ pagination, options, updateOptions }">
@@ -100,20 +112,45 @@
                 items-per-page-text="$vuetify.dataTable.itemsPerPageText"/>
             </template>
 
-            <template v-slot:item.actions="{ item }">
+            <template slot="item" slot-scope="props">
+              <tr :class="itemRowClass(props.item)">
+                <td>
+                  <v-layout justify-left>
+                    <a @click="showEditDialog(props.item)">
+                        <v-icon small color="primary">mdi-pencil</v-icon>
+                        {{ props.item.name }}
+                    </a>
+                  </v-layout>
+                </td>
+                <td>
+                  <v-layout justify-left>
+                    <a :href="'mailto:' + props.item.email">{{ props.item.email }}</a>
+                  </v-layout>
+                </td>
+                <td>
+                  <v-layout justify-center>
+                    {{ props.item.status.text }}
+                  </v-layout>
+                </td>
+                <td>
+                  <v-btn icon class="mx-0" @click="showEditDialog(props.item)">
+                      <v-icon small color="primary">mdi-pencil</v-icon>
+                  </v-btn>
+
+                  <v-btn icon class="mx-0" @click="showDeleteDialog(props.item)">
+                    <v-icon small color="pink">mdi-delete</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </template>
+
+            <template v-slot:item.actions="{ item }" v-if="false">
               <v-btn icon class="mx-0" @click="showEditDialog(item)">
                   <v-icon small color="primary">mdi-pencil</v-icon>
               </v-btn>
 
-              <v-btn icon class="mx-0"
-                @click="showDeleteDialog(item)"
-              >
-                <v-icon
-                  small
-                  color="pink"
-                >
-                  mdi-delete
-                </v-icon>
+              <v-btn icon class="mx-0" @click="showDeleteDialog(item)">
+                <v-icon small color="pink">mdi-delete</v-icon>
               </v-btn>
             </template>
 
@@ -128,18 +165,33 @@
 <script>
   // https://www.codeply.com/p/m0nip2TdUv
 
+  // import Vue from "vue";
   // import ItemDialog from "@/components/ItemDialog";
+
+  function getTitle (vm) {
+    const { title } = vm.$options
+    if (title) {
+      return typeof title === 'function'
+        ? title.call(vm)
+        : title
+    }
+  }
 
   export default {
     name: 'UsersList',
+    title: 'Users List'
 
     // components: {
     //   ItemDialog,
     // },
 
-    data: () => ({
+    // , mounted() {
+    //   console.log("mounted: ", this.users_list.editedItem);
+    // }
+    ,data: () => ({
       dialog: false
       , users_list: {
+        search: '',
         selected: [],
         headers: [
           // https://vuetifyjs.com/en/styles/colors/
@@ -150,8 +202,8 @@
           { text: '', value: 'actions', sortable: false, class: "primary white--text title" }
         ],
         items: [
-          {id: 0, name: 'Nam', email:null, status:{value:'valid', text:'有効'}},
-          {id: 1, name: 'Nguyen', email:null, status:{value:'invalid', text:'無効'}},
+          {id: 0, name: 'Nam', email:"nam@vue.nam", status:{value:'valid', text:'有効'}},
+          {id: 1, name: 'Nguyen', email:"nguyen@vue.nam", status:{value:'invalid', text:'無効'}},
           {id: 2, name: 'Tester 1', email:null, status:{value:'valid', text:'有効'}},
           {id: 3, name: 'Tester 2 - deleted', email:null, status:{value:'deleted', text:'削除'}},
           {id: 4, name: 'Tester 3', email:null, status:{value:'valid', text:'有効'}},
@@ -175,21 +227,42 @@
           {id: 22, name: 'Tester 21', email:null, status:{value:'valid', text:'有効'}},
         ]
         ,editedIndex: -1
-        ,editedItem: {id: null,  name: null, email:null, status:'valid'}
-        ,defaultItem: {id: null,  name: null, email:null, status:'valid'}
+        ,editedItem: {id: null,  name: null, email:null, status:{value:'valid', text:'有効'}}
+        ,defaultItem: {id: null,  name: null, email:null, status:{value:'valid', text:'有効'}}
       }
+      , status_list : {
+          default: {value:'valid', text: '有効'}
+          , items: [
+            {value:'valid', text: '有効'},
+            {value:'invalid', text: '無効'},
+            {value:'deleted', text: '削除'},
+          ]
+        }
     })
 
+    ,created () {
+      const title = getTitle(this)
+      if (title) {
+        document.title = title
+      }
+    }
+
+    ,watch: {
+      dialog(val) {
+        val || this.close()
+      },
+    }
 
     ,computed: {
       formTitle() {
         return ((this.users_list.editedIndex === -1) || (this.users_list.editedIndex === this.users_list.items.length)) ? 'New Item' : 'Edit Item'
       }
-    }
-    ,watch: {
-      dialog(val) {
-        val || this.close()
-      },
+      // ,indexedItems () {
+      //   return this.users_list.items.map((item, index) => ({
+      //     id: index,
+      //     ...item
+      //   }))
+      // }
     }
 
     ,methods: {
@@ -201,15 +274,19 @@
 
       ,showAddDialog:function() {
           this.users_list.editedIndex = this.users_list.items.length
-          this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
+          // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
+          this.users_list.editedItem = {...this.users_list.defaultItem}
           this.users_list.editedItem.id = this.users_list.editedIndex
           this.dialog = true
 
       }
 
       ,showEditDialog:function(item) {
+// console.log("showEditDialog", item)
           this.users_list.editedIndex = this.users_list.items.indexOf(item)
-          this.users_list.editedItem = Object.assign({}, item)
+          // this.users_list.editedItem = Object.assign({}, item)
+          this.users_list.editedItem = {...item}
+// console.log("showEditDialog", this.users_list.editedItem)
           this.dialog = true
 
       }
@@ -221,17 +298,28 @@
       }
       ,close() {
         this.dialog = false
-        setTimeout(() => {
-          this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
-          this.users_list.editedIndex = -1
-        }, 300)
+        // setTimeout(() => {
+        //   // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
+        //   this.users_list.editedItem = {...this.users_list.defaultItem}
+        //   this.users_list.editedIndex = -1
+        // }, 300)
+
+        this.users_list.editedItem = {...this.users_list.defaultItem}
+        this.users_list.editedIndex = -1
+// console.log("close()", this.users_list.editedItem)
       }
       ,save() {
         if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
           this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
+          // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
+// console.log("save()")
+// console.log(this.users_list.editedItem)
         } else { // Insert
           this.users_list.items.push({...this.users_list.editedItem})
+          // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
         }
+
+        this.users_list.editedIndex = -1
 
         this.close()
       }

@@ -15,7 +15,7 @@
           width="40"
         />
 
-        Users list demo
+        USERS LIST DEMO
       </div>
 
       <v-spacer></v-spacer>
@@ -33,6 +33,19 @@
     <v-main>
       <UsersList/>
     </v-main>
+
+    <v-card>
+      <v-card-text class="success--text pt-0" v-if="false">
+        Contact Me On Social Media!
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+      <v-card-text class="success--text">
+        &copy;2020 — <strong><a href="https://github.com/namtenten" target="_blank" class="success--text">Nguyen Ngoc Nam</a></strong>
+      </v-card-text>
+    </v-card>
+
   </v-app>
 </template>
 
