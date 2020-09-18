@@ -19,8 +19,9 @@
         </h2>
 
         <v-row>
-          <!-- <ItemDialog formTitle="Temp Title" /> -->
+          <UserEditDialog formTitle="User Edit Dialog" :users_list="users_list" :dialog="dialog" :selectedStatus="users_list.editedItem.status" />
 
+<!-- 
           <v-dialog v-model="dialog" max-width="700px">
             <v-card>
               <v-card-title>
@@ -61,6 +62,8 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+ -->
+
 
 <!-- 
           <v-data-table
@@ -166,7 +169,11 @@
   // https://www.codeply.com/p/m0nip2TdUv
 
   // import Vue from "vue";
-  // import ItemDialog from "@/components/ItemDialog";
+  import UserEditDialog from "@/components/UserEditDialog"
+
+  // import Vuex from 'vuex'
+  import { mapGetters } from 'vuex'
+  // import { mapActions } from "vuex"
 
   function getTitle (vm) {
     const { title } = vm.$options
@@ -178,12 +185,12 @@
   }
 
   export default {
-    name: 'UsersList',
-    title: 'Users List'
+    name: 'UsersList'
+    ,title: 'Users List'
 
-    // components: {
-    //   ItemDialog,
-    // },
+    ,components: {
+      UserEditDialog,
+    }
 
     // , mounted() {
     //   console.log("mounted: ", this.users_list.editedItem);
@@ -247,14 +254,18 @@
       }
     }
 
-    ,watch: {
-      dialog(val) {
-        val || this.close()
-      },
-    }
+    // ,watch: {
+    //   dialog(val) {
+    //     val || this.close()
+    //   },
+    // }
 
     ,computed: {
-      formTitle() {
+      ...mapGetters({ 
+        tableItems: 'tableItems'
+      })
+
+      , formTitle() {
         return ((this.users_list.editedIndex === -1) || (this.users_list.editedIndex === this.users_list.items.length)) ? 'New Item' : 'Edit Item'
       }
       // ,indexedItems () {
@@ -296,33 +307,33 @@
             confirm('Are you sure you want to delete this item?') && this.users_list.items.splice(index, 1)
           }
       }
-      ,close() {
-        this.dialog = false
-        // setTimeout(() => {
-        //   // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
-        //   this.users_list.editedItem = {...this.users_list.defaultItem}
-        //   this.users_list.editedIndex = -1
-        // }, 300)
+//       ,close() {
+//         this.dialog = false
+//         // setTimeout(() => {
+//         //   // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
+//         //   this.users_list.editedItem = {...this.users_list.defaultItem}
+//         //   this.users_list.editedIndex = -1
+//         // }, 300)
 
-        this.users_list.editedItem = {...this.users_list.defaultItem}
-        this.users_list.editedIndex = -1
-// console.log("close()", this.users_list.editedItem)
-      }
-      ,save() {
-        if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
-          this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
-          // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
-// console.log("save()")
-// console.log(this.users_list.editedItem)
-        } else { // Insert
-          this.users_list.items.push({...this.users_list.editedItem})
-          // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
-        }
+//         this.users_list.editedItem = {...this.users_list.defaultItem}
+//         this.users_list.editedIndex = -1
+// // console.log("close()", this.users_list.editedItem)
+//       }
+//       ,save() {
+//         if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
+//           this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
+//           // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
+// // console.log("save()")
+// // console.log(this.users_list.editedItem)
+//         } else { // Insert
+//           this.users_list.items.push({...this.users_list.editedItem})
+//           // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
+//         }
 
-        this.users_list.editedIndex = -1
+//         this.users_list.editedIndex = -1
 
-        this.close()
-      }
+//         this.close()
+//       }
 
     }
   }
