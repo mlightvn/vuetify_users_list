@@ -49,8 +49,22 @@ def home():
 
 @app.route("/users") 
 def users():
-    resultSet = json.dumps(UsersList)
+    resultSet = json.dumps(UsersList["items"])
+    # resultSet = jsonify(UsersList["items"])
     return resultSet
+
+# https://qiita.com/tchnkmr/items/26d271886b46c4e52dc1
+@app.route("/users/<int:user_id>", methods=['GET']) 
+def get_user(user_id=None):
+    result = None
+    # DBからフィルタリングして取得
+    # user = User.query.filter_by(id=user_id).first()
+    for user in UsersList["items"]:
+        if user["id"] == user_id :
+            result = user
+            break
+
+    return json.dumps(result), 418
 
 if __name__ == "__main__":
     app.run()
