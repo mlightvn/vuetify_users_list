@@ -170,10 +170,15 @@
 
   // import Vue from "vue";
   import UserEditDialog from "@/components/UserEditDialog"
+  import Vue from 'vue'
+  import axios from 'axios'
 
   // import Vuex from 'vuex'
   import { mapGetters } from 'vuex'
   // import { mapActions } from "vuex"
+
+  // Vue.prototype.$axios = axios
+  Vue.use(axios)
 
   function getTitle (vm) {
     const { title } = vm.$options
@@ -198,6 +203,7 @@
     ,data: () => ({
       dialog: false
       , users_list: {
+        api: {url:'http://localhost:5000/api/users'},
         search: '',
         selected: [],
         headers: [
@@ -209,29 +215,29 @@
           { text: '', value: 'actions', sortable: false, class: "primary white--text title" }
         ],
         items: [
-          {id: 0, name: 'Nam', email:"nam@vue.nam", status:{value:'valid', text:'有効'}},
-          {id: 1, name: 'Nguyen', email:"nguyen@vue.nam", status:{value:'invalid', text:'無効'}},
-          {id: 2, name: 'Tester 1', email:null, status:{value:'valid', text:'有効'}},
-          {id: 3, name: 'Tester 2 - deleted', email:null, status:{value:'deleted', text:'削除'}},
-          {id: 4, name: 'Tester 3', email:null, status:{value:'valid', text:'有効'}},
-          {id: 5, name: 'Tester 4', email:null, status:{value:'valid', text:'有効'}},
-          {id: 6, name: 'Tester 5', email:null, status:{value:'valid', text:'有効'}},
-          {id: 7, name: 'Tester 6', email:null, status:{value:'valid', text:'有効'}},
-          {id: 8, name: 'Tester 7', email:null, status:{value:'valid', text:'有効'}},
-          {id: 9, name: 'Tester 8', email:null, status:{value:'valid', text:'有効'}},
-          {id: 10, name: 'Tester 9 - deleted', email:null, status:{value:'deleted', text:'削除'}},
-          {id: 11, name: 'Tester 10', email:null, status:{value:'valid', text:'有効'}},
-          {id: 12, name: 'Tester 11', email:null, status:{value:'valid', text:'有効'}},
-          {id: 13, name: 'Tester 12', email:null, status:{value:'valid', text:'有効'}},
-          {id: 14, name: 'Tester 13', email:null, status:{value:'valid', text:'有効'}},
-          {id: 15, name: 'Tester 14', email:null, status:{value:'valid', text:'有効'}},
-          {id: 16, name: 'Tester 15', email:null, status:{value:'valid', text:'有効'}},
-          {id: 17, name: 'Tester 16', email:null, status:{value:'valid', text:'有効'}},
-          {id: 18, name: 'Tester 17', email:null, status:{value:'valid', text:'有効'}},
-          {id: 19, name: 'Tester 18', email:null, status:{value:'valid', text:'有効'}},
-          {id: 20, name: 'Tester 19', email:null, status:{value:'valid', text:'有効'}},
-          {id: 21, name: 'Tester 20', email:null, status:{value:'valid', text:'有効'}},
-          {id: 22, name: 'Tester 21', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 0, name: 'Nam', email:"nam@vue.nam", status:{value:'valid', text:'有効'}},
+          // {id: 1, name: 'Nguyen', email:"nguyen@vue.nam", status:{value:'invalid', text:'無効'}},
+          // {id: 2, name: 'Tester 1', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 3, name: 'Tester 2 - deleted', email:null, status:{value:'deleted', text:'削除'}},
+          // {id: 4, name: 'Tester 3', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 5, name: 'Tester 4', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 6, name: 'Tester 5', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 7, name: 'Tester 6', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 8, name: 'Tester 7', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 9, name: 'Tester 8', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 10, name: 'Tester 9 - deleted', email:null, status:{value:'deleted', text:'削除'}},
+          // {id: 11, name: 'Tester 10', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 12, name: 'Tester 11', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 13, name: 'Tester 12', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 14, name: 'Tester 13', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 15, name: 'Tester 14', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 16, name: 'Tester 15', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 17, name: 'Tester 16', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 18, name: 'Tester 17', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 19, name: 'Tester 18', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 20, name: 'Tester 19', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 21, name: 'Tester 20', email:null, status:{value:'valid', text:'有効'}},
+          // {id: 22, name: 'Tester 21', email:null, status:{value:'valid', text:'有効'}},
         ]
         ,editedIndex: -1
         ,editedItem: {id: null,  name: null, email:null, status:{value:'valid', text:'有効'}}
@@ -247,7 +253,15 @@
         }
     })
 
-    ,created () {
+    , mounted () {
+      axios
+        .get(this.users_list.api.url)
+        .then(response => {
+          this.users_list.items = response.data
+          // console.log(response)
+        })
+    }
+    , created () {
       const title = getTitle(this)
       if (title) {
         document.title = title
@@ -283,6 +297,14 @@
          return (item.status.value == "deleted") ? 'grey--text text--lighten-1' : (item.status.value == "invalid" ? 'deep-orange--text text--darken-1' : '')
       }
 
+      , fetchAPIData() { 
+        axios
+          .get(this.users_list.api.url)
+          .then(response => {
+            this.users_list.items = response.data
+          })
+      }
+
       ,showAddDialog:function() {
           this.users_list.editedIndex = this.users_list.items.length
           // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
@@ -301,12 +323,20 @@
           this.dialog = true
 
       }
+
       ,showDeleteDialog:function(item) {
-          const index = this.users_list.items.indexOf(item)
-          if (index > -1) {
-            confirm('Are you sure you want to delete this item?') && this.users_list.items.splice(index, 1)
-          }
+          axios
+            .delete(this.users_list.api.url + "/" + item.id)
+            .then(() => {
+              this.fetchAPIData()
+            })
+
+          // const index = this.users_list.items.indexOf(item)
+          // if (index > -1) {
+          //   confirm('Are you sure you want to delete this item?') && this.users_list.items.splice(index, 1)
+          // }
       }
+
 //       ,close() {
 //         this.dialog = false
 //         // setTimeout(() => {

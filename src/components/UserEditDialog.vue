@@ -45,6 +45,10 @@
 <script>
   // import { mapState } from "vuex";
   // import { mapGetters, mapActions } from 'vuex'
+  import Vue from 'vue'
+  import axios from 'axios'
+
+  Vue.use(axios)
 
   export default {
     name: 'UserEditDialog'
@@ -98,24 +102,21 @@
         this.users_list.editedIndex = -1
       }
       ,save() {
-// console.log("selectedStatus", this.$parent.selectedStatus)
-console.log("status", this.users_list.editedItem)
 
-//         this.$parent.selectedStatus = this.status_list.items.find(item => {
-// // console.log("status_value", status_value)
-// // console.log("item.value", item.value)
-//           return this.users_list.editedItem.status.value === item.value;
-//         });
-// //         // console.log(this.$parent.users_list.editedItem)
-
-
-
-        this.users_list.editedItem.status.text = this.status_list.values[this.users_list.editedItem.status.value]
+        let item = this.users_list.editedItem
 
         if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
-          this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
+          axios
+            .put(this.users_list.api.url + "/" + item.id, item)
+            .then(() => {
+              this.$parent.fetchAPIData()
+            })
         } else { // Insert
-          this.users_list.items.push({...this.users_list.editedItem})
+          axios
+            .post(this.users_list.api.url + "/create", item)
+            .then(() => {
+              this.$parent.fetchAPIData()
+            })
         }
 
         this.users_list.editedIndex = -1
