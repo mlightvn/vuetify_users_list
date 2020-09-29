@@ -3,6 +3,8 @@
     <notifications group="app" position="top right" />
     <vue-confirm-dialog></vue-confirm-dialog>
 
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
     <v-app-bar
       app
       color="primary"
@@ -17,9 +19,9 @@
           transition="scale-transition"
           width="40"
         />
-
-        USERS LIST DEMO
       </div>
+
+      <v-toolbar-title>{{app_name}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -31,39 +33,58 @@
         <span class="mr-2">Nguyen Ngoc Nam</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-filter</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+
     </v-app-bar>
 
     <v-main>
-      <UsersList/>
+      <v-container fluid>
+        <v-row>
+          <v-col sm="4" md="4">
+            <SideBar />
+          </v-col>
+          <v-col sm="8" md="8">
+            <UsersList/>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
 
-    <v-card>
-      <v-card-text class="success--text pt-0" v-if="false">
-        Contact Me On Social Media!
-      </v-card-text>
+    <v-footer app>
+          &copy;2020 — <strong><a href="https://github.com/namtenten" target="_blank" class="success--text">Nguyen Ngoc Nam</a></strong>
+    </v-footer>
 
-      <v-divider></v-divider>
-
-      <v-card-text class="success--text">
-        &copy;2020 — <strong><a href="https://github.com/namtenten" target="_blank" class="success--text">Nguyen Ngoc Nam</a></strong>
-      </v-card-text>
-    </v-card>
+    <v-bottom-navigation app v-if="false"></v-bottom-navigation>
 
   </v-app>
 </template>
 
 <script>
 import UsersList from './components/UsersList';
+import SideBar from './components/SideBar';
+
 
 export default {
   name: 'App',
 
   components: {
     UsersList,
+    SideBar,
   },
 
   data: () => ({
-    //
+    app_name:'USERS LIST DEMO',
   }),
 };
 </script>
