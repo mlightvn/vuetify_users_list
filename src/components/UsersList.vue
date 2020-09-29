@@ -15,7 +15,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-0">
-          USERS LIST
+          USERS LIST | RESTful
         </h2>
 
         <v-row>
@@ -120,7 +120,6 @@
   import { mapGetters } from 'vuex'
   // import { mapActions } from "vuex"
 
-  // Vue.prototype.$axios = axios
   Vue.use(axios)
 
   function getTitle (vm) {
@@ -157,31 +156,7 @@
           { text: '状態', value: 'status.text', sortable: true, class: "primary white--text title" },
           { text: '', value: 'actions', sortable: false, class: "primary white--text title" }
         ],
-        items: [
-          // {id: 0, name: 'Nam', email:"nam@vue.nam", status:{value:'valid', text:'有効'}},
-          // {id: 1, name: 'Nguyen', email:"nguyen@vue.nam", status:{value:'invalid', text:'無効'}},
-          // {id: 2, name: 'Tester 1', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 3, name: 'Tester 2 - deleted', email:null, status:{value:'deleted', text:'削除'}},
-          // {id: 4, name: 'Tester 3', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 5, name: 'Tester 4', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 6, name: 'Tester 5', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 7, name: 'Tester 6', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 8, name: 'Tester 7', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 9, name: 'Tester 8', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 10, name: 'Tester 9 - deleted', email:null, status:{value:'deleted', text:'削除'}},
-          // {id: 11, name: 'Tester 10', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 12, name: 'Tester 11', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 13, name: 'Tester 12', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 14, name: 'Tester 13', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 15, name: 'Tester 14', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 16, name: 'Tester 15', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 17, name: 'Tester 16', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 18, name: 'Tester 17', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 19, name: 'Tester 18', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 20, name: 'Tester 19', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 21, name: 'Tester 20', email:null, status:{value:'valid', text:'有効'}},
-          // {id: 22, name: 'Tester 21', email:null, status:{value:'valid', text:'有効'}},
-        ]
+        items: []
         ,editedIndex: -1
         ,editedItem: {id: null,  name: null, email:null, status:{value:'valid', text:'有効'}}
         ,defaultItem: {id: null,  name: null, email:null, status:{value:'valid', text:'有効'}}
@@ -211,12 +186,6 @@
       }
     }
 
-    // ,watch: {
-    //   dialog(val) {
-    //     val || this.close()
-    //   },
-    // }
-
     ,computed: {
       ...mapGetters({ 
         tableItems: 'tableItems'
@@ -225,12 +194,6 @@
       , formTitle() {
         return ((this.users_list.editedIndex === -1) || (this.users_list.editedIndex === this.users_list.items.length)) ? 'New Item' : 'Edit Item'
       }
-      // ,indexedItems () {
-      //   return this.users_list.items.map((item, index) => ({
-      //     id: index,
-      //     ...item
-      //   }))
-      // }
     }
 
     ,methods: {
@@ -256,12 +219,8 @@
       }
 
       ,showEditDialog:function(item) {
-// console.log("showEditDialog", item)
           this.users_list.editedIndex = this.users_list.items.indexOf(item)
-          // this.users_list.editedItem = {...item}
           this.users_list.editedItem = item
-// console.log("showEditDialog", this.users_list.editedItem)
-// console.log("showEditDialog", item.status.text, item.status.value)
           this.dialog = true
 
       }
@@ -275,40 +234,11 @@
               .delete(this.users_list.api.url + "/" + item.id)
               .then(() => {
                 this.users_list.items.splice(index, 1)
-                // this.fetchAPIData()
               })
           }
         }
 
       }
-
-//       ,close() {
-//         this.dialog = false
-//         // setTimeout(() => {
-//         //   // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
-//         //   this.users_list.editedItem = {...this.users_list.defaultItem}
-//         //   this.users_list.editedIndex = -1
-//         // }, 300)
-
-//         this.users_list.editedItem = {...this.users_list.defaultItem}
-//         this.users_list.editedIndex = -1
-// // console.log("close()", this.users_list.editedItem)
-//       }
-//       ,save() {
-//         if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
-//           this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
-//           // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
-// // console.log("save()")
-// // console.log(this.users_list.editedItem)
-//         } else { // Insert
-//           this.users_list.items.push({...this.users_list.editedItem})
-//           // Vue.set(this.users_list.items, {...this.users_list.editedItem}, this.users_list.editedIndex)
-//         }
-
-//         this.users_list.editedIndex = -1
-
-//         this.close()
-//       }
 
     }
   }
