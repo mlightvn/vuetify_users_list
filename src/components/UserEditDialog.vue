@@ -103,19 +103,24 @@
       }
       ,save() {
 
+        this.users_list.editedItem.status.text = this.status_list.values[this.users_list.editedItem.status.value]
         let item = this.users_list.editedItem
-
+// console.log("item: inserted / updated")
+// console.log(item)
         if (0 <= this.users_list.editedIndex && this.users_list.editedIndex < this.users_list.items.length) { // Update
           axios
             .put(this.users_list.api.url + "/" + item.id, item)
             .then(() => {
-              this.$parent.fetchAPIData()
+              this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
+              // this.$parent.fetchAPIData()
             })
         } else { // Insert
           axios
             .post(this.users_list.api.url + "/create", item)
-            .then(() => {
-              this.$parent.fetchAPIData()
+            .then((response) => {
+              let added_user = response.data
+              this.users_list.items.push({...added_user})
+              // this.$parent.fetchAPIData()
             })
         }
 

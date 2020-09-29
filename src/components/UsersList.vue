@@ -237,7 +237,7 @@
       initialise() {
       }
       ,itemRowClass: function (item) {
-         return (item.status.value == "deleted") ? 'grey--text text--lighten-1' : (item.status.value == "invalid" ? 'deep-orange--text text--darken-1' : '')
+         return (item.status.value == "deleted") ? 'grey--text text--lighten-1' : (item.status.value == "invalid" ? 'deep-orange--text text--darken-1' : 'green--text')
       }
 
       , fetchAPIData() { 
@@ -249,10 +249,8 @@
       }
 
       ,showAddDialog:function() {
-          this.users_list.editedIndex = this.users_list.items.length
-          // this.users_list.editedItem = Object.assign({}, this.users_list.defaultItem)
+          this.users_list.editedIndex = -1
           this.users_list.editedItem = {...this.users_list.defaultItem}
-          this.users_list.editedItem.id = this.users_list.editedIndex
           this.dialog = true
 
       }
@@ -260,24 +258,28 @@
       ,showEditDialog:function(item) {
 // console.log("showEditDialog", item)
           this.users_list.editedIndex = this.users_list.items.indexOf(item)
-          // this.users_list.editedItem = Object.assign({}, item)
-          this.users_list.editedItem = {...item}
+          // this.users_list.editedItem = {...item}
+          this.users_list.editedItem = item
 // console.log("showEditDialog", this.users_list.editedItem)
+// console.log("showEditDialog", item.status.text, item.status.value)
           this.dialog = true
 
       }
 
       ,showDeleteDialog:function(item) {
-          axios
-            .delete(this.users_list.api.url + "/" + item.id)
-            .then(() => {
-              this.fetchAPIData()
-            })
+        const index = this.users_list.items.indexOf(item)
+        if (index > -1) {
+          let isDeleted = confirm('Are you sure you want to delete this item?')
+          if(isDeleted){
+            axios
+              .delete(this.users_list.api.url + "/" + item.id)
+              .then(() => {
+                this.users_list.items.splice(index, 1)
+                // this.fetchAPIData()
+              })
+          }
+        }
 
-          // const index = this.users_list.items.indexOf(item)
-          // if (index > -1) {
-          //   confirm('Are you sure you want to delete this item?') && this.users_list.items.splice(index, 1)
-          // }
       }
 
 //       ,close() {
