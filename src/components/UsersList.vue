@@ -20,64 +20,6 @@
 
         <v-row>
           <UserEditDialog formTitle="User Edit Dialog" :users_list="users_list" :dialog="dialog" :selectedStatus="users_list.editedItem.status" />
-
-<!-- 
-          <v-dialog v-model="dialog" max-width="700px">
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex xs12 sm12 md12 color="grey">
-                        <v-text-field v-model="users_list.editedItem.id" label="ID" readonly="readonly" disabled></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="users_list.editedItem.name" label="名前"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="users_list.editedItem.email" label="email" type="email"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm12 md12>
-                      <v-select
-                        label="状態"
-                        v-model="users_list.editedItem.status.value"
-                        item-text="text"
-                        item-value="value"
-                        :items="status_list.items"
-                        no-data-text="<No data was gathered!>"
-                        dense
-                      >
-                      </v-select>
-
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click.native="close">Cancel</v-btn>
-                <v-btn color="primary" @click.native="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
- -->
-
-
-<!-- 
-          <v-data-table
-            v-model="users_list.selected"
-            :headers="users_list.headers"
-            :items="users_list.items"
-            :items-per-page="10"
-            item-key="id"
-            :show-select="false"
-            :multi-sort="true"
-            :item-class="itemRowClass"
-          >
-          </v-data-table>
- -->
         </v-row>
 
         <v-row>
@@ -87,7 +29,8 @@
           >
             <div class="text-right">
               <!-- https://materialdesignicons.com/ -->
-              <v-btn color="primary" fab dark class="mb-0" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
+              <v-btn color="primary" fab dark class="mb-0 mr-1" @click="fetchAPIData()"><v-icon color="white">mdi-refresh</v-icon></v-btn>
+              <v-btn color="primary" fab dark class="mb-0 mr-1" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
             </div>
 
           </v-col>

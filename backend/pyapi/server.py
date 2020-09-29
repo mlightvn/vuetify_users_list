@@ -115,11 +115,19 @@ def create_user():
     return jsonify(user)
 
 @api.route("/users/<int:user_id>", methods=['PUT']) # UPDATE 
-def update_user():
+def update_user(user_id=None):
     result = None
-    user = request.json
+    editedUser = request.json
 
-    return jsonify(user)
+    items_length = len(UsersList["items"])
+    items_range = range(items_length)
+    for index in items_range:
+        if UsersList["items"][index]["id"] == user_id :
+            UsersList["items"][index] = editedUser
+            result = editedUser
+            break
+
+    return jsonify(result)
 
 @api.route("/users/<int:user_id>", methods=['DELETE']) 
 def delete_user(user_id=None):
