@@ -113,6 +113,14 @@
             .then(() => {
               this.users_list.items[this.users_list.editedIndex] = {...this.users_list.editedItem}
               // this.$parent.fetchAPIData()
+
+              this.$notify({
+                group: 'app',
+                title: 'User updated',
+                text: 'User information was updated!',
+                type: 'success',
+              });
+
             })
         } else { // Insert
           axios
@@ -121,6 +129,13 @@
               let added_user = response.data
               this.users_list.items.push({...added_user})
               // this.$parent.fetchAPIData()
+
+              this.$notify({
+                group: 'app',
+                title: 'User updated',
+                text: 'User information was added!',
+                type: 'success',
+              });
             })
         }
 

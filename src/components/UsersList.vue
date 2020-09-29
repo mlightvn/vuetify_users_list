@@ -228,14 +228,35 @@
       ,showDeleteDialog:function(item) {
         const index = this.users_list.items.indexOf(item)
         if (index > -1) {
-          let isDeleted = confirm('Are you sure you want to delete this item?')
-          if(isDeleted){
-            axios
-              .delete(this.users_list.api.url + "/" + item.id)
-              .then(() => {
-                this.users_list.items.splice(index, 1)
-              })
-          }
+          this.$confirm(
+            {
+              title: `CONFIRM DIALOG`,
+              message: `Are you sure you want to delete this item?`,
+              button: {
+                no: 'No',
+                yes: 'Yes'
+              },
+              callback: confirm => {
+                if (confirm) {
+                  axios
+                    .delete(this.users_list.api.url + "/" + item.id)
+                    .then(() => {
+
+                      this.users_list.items.splice(index, 1)
+
+                      this.$notify({
+                        group: 'app',
+                        title: 'User deleted',
+                        text: 'User information was deleted!'
+                        , type: 'error'
+                      });
+
+                    })
+                }
+              }
+            }
+          )
+
         }
 
       }

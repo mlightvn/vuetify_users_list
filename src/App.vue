@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <notifications group="app" position="top right" />
+    <vue-confirm-dialog></vue-confirm-dialog>
+
     <v-app-bar
       app
       color="primary"
