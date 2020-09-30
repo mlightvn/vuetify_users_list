@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <img alt="Vue logo" src="../assets/logo/logo_128.png">
+    DASHBOARD
   </v-container>
 </template>
 

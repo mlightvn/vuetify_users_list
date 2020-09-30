@@ -19,6 +19,8 @@
           v-if="item.items === undefined || item.items === null"
           link
           :to="item.to"
+          :href="item.href"
+          :target="(item.href) ? '_blank': ''"
         >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -49,6 +51,7 @@
           <v-list-item
             v-for="child in item['items']"
             :key="child.title"
+            :to="child.to"
           >
             <v-list-item-icon>
               <v-icon>{{ child.icon }}</v-icon>
@@ -98,6 +101,7 @@ export default {
           { title: 'Settings', icon: 'mdi-cog-outline', to: '/admin/setting',},
         ],
       },
+      { title: 'Donate', icon: 'mdi-currency-usd', href: 'https://github.com/namtenten', },
 
     ],
 
