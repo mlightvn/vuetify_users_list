@@ -11,6 +11,9 @@
 ![Users list](./demo/06.users_list.png)
 ![Update existed user information](./demo/07.deleted.png)
 ![Update existed user information](./demo/08.inactive.png)
+![Confirm deleting](./demo/09.confirm_deleting.png)
+![Deleted](./demo/10.deleted.png)
+![Deleted](./demo/11.deleted.png)
 
 ## Project setup
 
