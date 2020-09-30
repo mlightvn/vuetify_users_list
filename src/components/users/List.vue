@@ -29,8 +29,8 @@
           >
             <div class="text-right">
               <!-- https://materialdesignicons.com/ -->
-              <v-btn color="primary" fab dark class="mb-0 mr-1" @click="fetchAPIData()"><v-icon color="white">mdi-refresh</v-icon></v-btn>
-              <v-btn color="primary" fab dark class="mb-0 mr-1" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
+              <v-btn color="orange darken-4" fab dark class="mb-0 mr-1" @click="fetchAPIData()"><v-icon color="white">mdi-refresh</v-icon></v-btn>
+              <v-btn color="orange darken-4" fab dark class="mb-0 mr-1" @click="showAddDialog()"><v-icon color="white">mdi-account-multiple-plus</v-icon></v-btn>
             </div>
 
           </v-col>
@@ -63,7 +63,7 @@
                 <td>
                   <v-layout justify-left>
                     <a @click="showEditDialog(props.item)">
-                        <v-icon small color="primary">mdi-pencil</v-icon>
+                        <v-icon small color="orange darken-4">mdi-pencil</v-icon>
                         {{ props.item.name }}
                     </a>
                   </v-layout>
@@ -80,7 +80,7 @@
                 </td>
                 <td>
                   <v-btn icon class="mx-0" @click="showEditDialog(props.item)">
-                      <v-icon small color="primary">mdi-pencil</v-icon>
+                      <v-icon small color="orange darken-4">mdi-pencil</v-icon>
                   </v-btn>
 
                   <v-btn icon class="mx-0" @click="showDeleteDialog(props.item)">
@@ -92,7 +92,7 @@
 
             <template v-slot:item.actions="{ item }" v-if="false">
               <v-btn icon class="mx-0" @click="showEditDialog(item)">
-                  <v-icon small color="primary">mdi-pencil</v-icon>
+                  <v-icon small color="orange darken-4">mdi-pencil</v-icon>
               </v-btn>
 
               <v-btn icon class="mx-0" @click="showDeleteDialog(item)">
@@ -150,11 +150,11 @@
         selected: [],
         headers: [
           // https://vuetifyjs.com/en/styles/colors/
-          // { text: '#', value: 'id',  sortable: true, class: "primary white--text title" },
-          { text: '名前', value: 'name', sortable: true, class: "primary white--text title" },
-          { text: 'email', value: 'email', sortable: true, class: "primary white--text title" },
-          { text: '状態', value: 'status.text', sortable: true, class: "primary white--text title" },
-          { text: '', value: 'actions', sortable: false, class: "primary white--text title" }
+          // { text: '#', value: 'id',  sortable: true, class: "orange darken-4 white--text title" },
+          { text: '名前', value: 'name', sortable: true, class: "orange darken-4 white--text title" },
+          { text: 'email', value: 'email', sortable: true, class: "orange darken-4 white--text title" },
+          { text: '状態', value: 'status.text', sortable: true, class: "orange darken-4 white--text title" },
+          { text: '', value: 'actions', sortable: false, class: "orange darken-4 white--text title" }
         ],
         items: []
         ,editedIndex: -1
@@ -172,12 +172,7 @@
     })
 
     , mounted () {
-      axios
-        .get(this.users_list.api.url)
-        .then(response => {
-          this.users_list.items = response.data
-          // console.log(response)
-        })
+      fetchAPIData()
     }
     , created () {
       const title = getTitle(this)
