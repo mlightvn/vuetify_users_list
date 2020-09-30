@@ -18,15 +18,15 @@
         <v-list-item
           v-if="item.items === undefined || item.items === null"
           link
+          :to="item.to"
         >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
 
         </v-list-item>
 
@@ -134,9 +134,10 @@ export default {
 
   data: () => ({
     items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard', active: true, },
-      { title: 'Photos', icon: 'mdi-image' },
-      { title: 'About', icon: 'mdi-help-box' },
+      { title: 'Dashboard', icon: 'mdi-view-dashboard', active: true, to: '/',},
+      { title: 'Users', icon: 'mdi-account-group', to: '/users',},
+      { title: 'Photos', icon: 'mdi-image', to: '/photos', },
+      { title: 'About', icon: 'mdi-help-box', to: '/about', },
 
       {
         title: 'Administration',

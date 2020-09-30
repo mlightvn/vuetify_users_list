@@ -14,7 +14,7 @@
             <SideBar />
           </v-col>
           <v-col sm="8" md="10">
-            <UsersList/>
+            <router-view/>
           </v-col>
         </v-row>
       </v-container>
@@ -29,7 +29,6 @@
 
 <script>
 import TopMenu from './components/TopMenu';
-import UsersList from './components/users/List';
 import SideBar from './components/SideBar';
 import Footer from './components/Footer';
 
@@ -38,7 +37,6 @@ export default {
 
   components: {
     TopMenu,
-    UsersList,
     SideBar,
     Footer,
   },
