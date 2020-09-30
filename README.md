@@ -13,11 +13,24 @@
 ![Update existed user information](./demo/08.inactive.png)
 
 ## Project setup
+
+### Run API server first
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+```
+python3 server.py
+```
+
+http://127.0.0.1:5000/
+
+http://127.0.0.1:5000/api/users
+
+http://127.0.0.1:5000/api/users/1
+
+### Run web server
 ```
 npm run serve
 ```
