@@ -172,7 +172,7 @@
     })
 
     , mounted () {
-      fetchAPIData()
+      this.fetchAPIData()
     }
     , created () {
       const title = getTitle(this)
