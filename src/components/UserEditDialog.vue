@@ -1,8 +1,10 @@
 <template>
   <v-dialog v-model="$parent.dialog" max-width="700px">
     <v-card>
-      <v-card-title>
-        <span class="headline">{{ formTitle }}</span>
+      <v-card-title
+        class="orange accent-4"
+      >
+        <span class="headline white--text">{{ formTitle }}</span>
       </v-card-title>
       <v-card-text>
         <v-container grid-list-md>
@@ -34,8 +36,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click.native="close">Cancel</v-btn>
-        <v-btn color="primary" @click.native="save">Save</v-btn>
+        <v-btn color="orange accent-4 white--text" @click.native="close">Cancel</v-btn>
+        <v-btn color="orange accent-4 white--text" @click.native="save">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

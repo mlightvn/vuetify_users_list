@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar
-      color="orange darken-4"
+      color="orange accent-4"
       dark
       flat
     >
@@ -43,7 +43,7 @@
         <v-tabs
           v-model="tab"
           align-with-title
-          background-color="orange darken-3"
+          background-color="orange accent-3"
         >
           <v-tabs-slider color="white"></v-tabs-slider>
 
