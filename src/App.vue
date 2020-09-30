@@ -8,16 +8,13 @@
     <TopMenu />
 
     <v-main>
-      <v-container fluid>
-        <v-row>
-          <v-col sm="4" md="2">
-            <SideBar />
-          </v-col>
-          <v-col sm="8" md="10">
-            <router-view/>
-          </v-col>
-        </v-row>
-      </v-container>
+      <SideBar />
+
+      <v-content>
+        <v-container>
+          <router-view/>
+        </v-container>
+      </v-content>
     </v-main>
 
     <Footer />

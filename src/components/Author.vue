@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row class="text-left">
       <v-col
         class="mb-1"
         cols="12"
       >
-        <v-card width="100%">
+        <v-card>
           <v-img
             height="200px"
             :src="require('../assets/images/green_grasses.jpg')"

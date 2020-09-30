@@ -39,7 +39,9 @@
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
-      <template v-slot:extension>
+      <template v-slot:extension
+        v-if="false"
+      >
         <v-tabs
           v-model="tab"
           align-with-title

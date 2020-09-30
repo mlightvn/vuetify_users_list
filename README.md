@@ -14,6 +14,7 @@
 ![Confirm deleting](./demo/09.confirm_deleting.png)
 ![Deleted](./demo/10.deleted.png)
 ![Deleted](./demo/11.deleted.png)
+![About page](./demo/12.about_page.png)
 
 ## Project setup
 
