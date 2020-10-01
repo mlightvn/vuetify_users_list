@@ -20,7 +20,7 @@
           link
           :to="item.to"
           :href="item.href"
-          :target="(item.href) ? '_blank': ''"
+          :target="(item.href) ? '_blank' : undefined"
         >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -29,6 +29,10 @@
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
+
+            <v-list-item-icon v-if="item.isNewTab">
+              <v-icon>mdi-open-in-new</v-icon>
+            </v-list-item-icon>
 
         </v-list-item>
 
@@ -59,6 +63,7 @@
 
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
+              <v-icon v-if="child.isNewTab">mdi-open-in-new</v-icon>
             </v-list-item-content>
           </v-list-item>
 
@@ -70,20 +75,20 @@
 
     <v-divider></v-divider>
 
-    <Author v-if="false"/>
+    <AdsSideBar />
 
   </v-navigation-drawer>
 
 </template>
 
 <script>
-import Author from './Author';
+import AdsSideBar from './ads/SideBar';
 
 export default {
   name: 'SideBar',
 
   components: {
-    Author,
+    AdsSideBar,
   },
 
   data: () => ({
@@ -101,7 +106,7 @@ export default {
           { title: 'Settings', icon: 'mdi-cog-outline', to: '/admin/setting',},
         ],
       },
-      { title: 'Donate', icon: 'mdi-currency-usd', href: 'https://github.com/namtenten', },
+      { title: 'Donate', icon: 'mdi-currency-usd', href: 'https://www.paypal.me/rakujin', isNewTab: true},
 
     ],
 

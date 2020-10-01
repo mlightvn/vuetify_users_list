@@ -84,20 +84,10 @@
                   </v-btn>
 
                   <v-btn icon class="mx-0" @click="showDeleteDialog(props.item)">
-                    <v-icon small color="pink">mdi-delete</v-icon>
+                    <v-icon small color="red">mdi-delete</v-icon>
                   </v-btn>
                 </td>
               </tr>
-            </template>
-
-            <template v-slot:item.actions="{ item }" v-if="false">
-              <v-btn icon class="mx-0" @click="showEditDialog(item)">
-                  <v-icon small color="orange accent-4">mdi-pencil</v-icon>
-              </v-btn>
-
-              <v-btn icon class="mx-0" @click="showDeleteDialog(item)">
-                <v-icon small color="pink">mdi-delete</v-icon>
-              </v-btn>
             </template>
 
           </v-data-table>
