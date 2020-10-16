@@ -10,11 +10,9 @@
     <v-main>
       <SideBar />
 
-      <v-content>
-        <v-container>
-          <router-view/>
-        </v-container>
-      </v-content>
+      <v-container>
+        <router-view/>
+      </v-container>
     </v-main>
 
     <Footer />

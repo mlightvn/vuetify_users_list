@@ -19,7 +19,7 @@
         </h2>
 
         <v-row>
-          <UserEditDialog formTitle="User Edit Dialog" :users_list="users_list" :dialog="dialog" :selectedStatus="users_list.editedItem.status" />
+          <UserEditDialog :formTitle="this.formTitle" :users_list="users_list" :dialog="dialog" :selectedStatus="users_list.editedItem.status" />
         </v-row>
 
         <v-row>
@@ -112,18 +112,8 @@
 
   Vue.use(axios)
 
-  function getTitle (vm) {
-    const { title } = vm.$options
-    if (title) {
-      return typeof title === 'function'
-        ? title.call(vm)
-        : title
-    }
-  }
-
   export default {
     name: 'UsersList'
-    ,title: 'Users List'
 
     ,components: {
       UserEditDialog,
@@ -161,10 +151,6 @@
       // this.fetchAPIData()
     }
     , created () {
-      const title = getTitle(this)
-      if (title) {
-        document.title = title
-      }
     }
 
     ,computed: {
@@ -173,7 +159,7 @@
       })
 
       , formTitle() {
-        return ((this.users_list.editedIndex === -1) || (this.users_list.editedIndex === this.users_list.items.length)) ? 'New Item' : 'Edit Item'
+        return ((this.users_list.editedIndex === -1)) ? 'New Item' : 'Edit Item'
       }
     }
 
