@@ -7,12 +7,19 @@
 
     <TopMenu />
 
-    <v-main>
-      <SideBar />
+    <SideBar />
 
-      <v-container>
-        <router-view/>
-      </v-container>
+    <v-main>
+        <v-container
+          fluid
+          fill-height
+        >
+          <v-layout>
+            <v-flex>
+              <router-view/>
+            </v-flex>
+          </v-layout>
+        </v-container>
     </v-main>
 
     <Footer />
