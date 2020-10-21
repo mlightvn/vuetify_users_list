@@ -47,7 +47,7 @@
     </v-toolbar>
 
     <template v-slot:extension
-      v-if="true"
+      v-if="false"
     >
       <v-tabs
         v-model="tab"
@@ -58,23 +58,24 @@
 
         <v-tab
           v-for="item in items"
-          :key="item"
+          :key="item.value"
         >
-          {{ item }}
+          {{ item.value }}
         </v-tab>
 
         <v-tabs-items v-model="tab">
           <v-tab-item
             v-for="item in items"
-            :key="item"
+            :key="item.value"
           >
             <v-card flat v-if="true">
-              <v-card-text v-text="text"></v-card-text>
+              <v-card-text v-text="item.text"></v-card-text>
             </v-card>
           </v-tab-item>
         </v-tabs-items>
 
       </v-tabs>
+
     </template>
 
   </v-app-bar>
@@ -88,9 +89,12 @@
         app_name:'USERS LIST DEMO',
         tab: null,
         items: [
-          'web', 'shopping', 'videos', 'images', 'news',
+          {value:'web', text:'Webbbbbbbbbbbb'},
+          {value:'shopping', text:'Shopping ............'},
+          {value:'videos', text:'Videos ............'},
+          {value:'images', text:'Images ............'},
+          {value:'news', text:'News ............'},
         ],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       }
     },
   }
