@@ -17,7 +17,7 @@
           :alt="app_name"
           class="shrink mr-2"
           contain
-          :src="require('../assets/logo/logo_64.png')"
+          :src="profile.avatar"
           transition="scale-transition"
           width="40"
         />
@@ -28,11 +28,11 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/namtenten"
+        :href="profile.url"
         target="_blank"
         text
       >
-        <span class="mr-2">Nguyen Ngoc Nam</span>
+        <span class="mr-2">{{profile.name}}</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
 
@@ -83,19 +83,26 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        app_name:'USERS LIST DEMO',
-        tab: null,
-        items: [
-          {value:'web', text:'Webbbbbbbbbbbb'},
-          {value:'shopping', text:'Shopping ............'},
-          {value:'videos', text:'Videos ............'},
-          {value:'images', text:'Images ............'},
-          {value:'news', text:'News ............'},
-        ],
-      }
-    },
-  }
+export default {
+  data () {
+    return {
+      app_name: process.env.VUE_APP_TITLE,
+      tab: null,
+      profile: {
+        name: process.env.VUE_APP_PROFILE_NAME,
+        avatar: require('../assets/logo/logo_64.png'),
+        status: 'online',
+        last_seen: 'a few seconds ago',
+        url: process.env.VUE_APP_PROFILE_URL,
+      },
+      items: [
+        {value:'web', text:'Webbbbbbbbbbbb'},
+        {value:'shopping', text:'Shopping ............'},
+        {value:'videos', text:'Videos ............'},
+        {value:'images', text:'Images ............'},
+        {value:'news', text:'News ............'},
+      ],
+    }
+  },
+}
 </script>

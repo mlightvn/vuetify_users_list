@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import configuration from '../configuration';
 import AdsSideBar from './ads/SideBar';
 
 export default {
@@ -100,14 +101,21 @@ export default {
       { title: 'About', icon: 'mdi-help-box', to: '/about', },
 
       {
+        title: 'Blockchain',
+        icon: 'mdi-lan-check',
+        items: [
+          { title: 'Donate Coin', icon: 'mdi-hexagon-multiple', to: '/blockchain/donate',},
+        ],
+      },
+      {
         title: 'Administration',
         icon: 'mdi-account-cog',
         items: [
-          { title: 'Management', icon: 'mdi-account-multiple-outline', to: '/admin/management',},
-          { title: 'Settings', icon: 'mdi-cog-outline', to: '/admin/setting',},
+          { title: 'Management', icon: 'mdi-account-multiple-outline', to: '/administration/management',},
+          { title: 'Settings', icon: 'mdi-cog-outline', to: '/administration/setting',},
         ],
       },
-      { title: 'Donate', icon: 'mdi-currency-usd', href: 'https://www.paypal.me/rakujin', isNewTab: true},
+      { title: 'Donate', icon: 'mdi-currency-usd', href: configuration.author.donate, isNewTab: true},
 
     ],
 

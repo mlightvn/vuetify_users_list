@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <notifications group="app" position="top right" />
-    <vue-confirm-dialog></vue-confirm-dialog>
+    <!-- <vue-confirm-dialog></vue-confirm-dialog> -->
 
     <v-system-bar color="deep-purple darken-3" v-if="false"></v-system-bar>
 

@@ -34,8 +34,8 @@
             <v-card-title class="white--text mt-10">
               <v-avatar size="56">
                 <img
-                  alt="user"
-                  :src="author.image"
+                  :alt="author.name"
+                  :src="author.avatar"
                 >
               </v-avatar>
               <p class="ml-3">
@@ -75,28 +75,40 @@
 
 <script>
 //  import Vue from 'vue'
+// import 'dotenv/config'
+// require('dotenv').config();
+import configuration from "@/configuration"
 
-  export default {
-    name: 'Author'
+export default {
+  name: 'Author',
 
-    ,components: {
+  components: {
+  },
+
+  data() {
+    return {
+      // author : {
+      //   name: process.env.VUE_APP_PROFILE_NAME,
+      //   image: process.env.VUE_APP_PROFILE_AVATAR,
+      //   url: process.env.VUE_APP_PROFILE_URL,
+      //   social_media:{
+      //     linkedin: process.env.VUE_APP_PROFILE_LINKEDIN,
+      //     github: process.env.VUE_APP_PROFILE_GITHUB,
+      //   }
+      // },
+      author: configuration.author,
     }
+  },
 
-    ,data: () => ({
-      author : {
-          name: 'NGUYEN NGOC NAM',
-          image: 'https://avatars1.githubusercontent.com/u/19430488?s=460&u=9178a079c227a46ee6b8dc598fa2cf6cdbbde4a1&v=4',
-          social_media:{
-            linkedin: '',
-            github: 'https://github.com/namtenten',
-          }
-        }
-    })
+  methods: {
+    initialise() {
+      // console.log({author: this.author});
+    },
 
-    ,methods: {
-      initialise() {
-      }
+  },
 
-    }
-  }
+  created() {
+    this.initialise();
+  },
+}
 </script>

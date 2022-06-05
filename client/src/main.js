@@ -3,16 +3,17 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import Notifications from 'vue-notification'
-import VueConfirmDialog from 'vue-confirm-dialog'
+// import VueConfirmDialog from 'vue-confirm-dialog'
 import router from './router'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(Notifications)
-Vue.use(VueConfirmDialog)
+// Vue.use(VueConfirmDialog)
 
-Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+// https://www.npmjs.com/package/vue-confirm-dialog
+// Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 
 new Vue({
   vuetify,
